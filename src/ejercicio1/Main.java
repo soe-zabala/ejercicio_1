@@ -51,17 +51,17 @@ public class Main {
 		System.out.println("Cant. | Descripcion | P. unit | P. total");
 		System.out.println(
 				"----------------------------------------------------------------------------------------------------");
-		System.out.println(
-				cantidad1 + "    | " + producto1 + "       | " + precioSinIva1 + "     | " + precioSinIva1 * 1.21);
-		System.out.println(
-				"----------------------------------------------------------------------------------------------------");
-		System.out.println(
-				cantidad2 + "    | " + producto2 + "       | " + precioSinIva2 + "     | " + precioSinIva2 * 1.21);
+		System.out.println(cantidad1 + "    | " + producto1 + "       | " + precioSinIva1 + "     | "
+				+ (precioSinIva1 * cantidad1));
 		System.out.println(
 				"----------------------------------------------------------------------------------------------------");
-		System.out.println("IVA: $" + ((precioSinIva1 + precioSinIva2) * 0.21));
-		System.out.println("Subtotal (sin IVA): $" + (precioSinIva1 + precioSinIva2));
-		System.out.println("Total: $" + ((precioSinIva1 * 1.21) + (precioSinIva2 * 1.21)));
+		System.out.println(cantidad2 + "    | " + producto2 + "       | " + precioSinIva2 + "     | "
+				+ (precioSinIva2 * cantidad2));
+		System.out.println(
+				"----------------------------------------------------------------------------------------------------");
+		System.out.println("IVA: $" + ((((precioSinIva1 * cantidad1) + (precioSinIva2 * cantidad2)) * 0.21)));
+		System.out.println("Subtotal (sin IVA): $" + ((precioSinIva1 * cantidad1) + (precioSinIva2 * cantidad2)));
+		System.out.println("Total: $" + ((((precioSinIva1 * cantidad1) + (precioSinIva2 * cantidad2)) * 1.21)));
 		System.out.println("**************************************************************************************");
 
 	}
