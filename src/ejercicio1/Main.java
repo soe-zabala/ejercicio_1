@@ -7,58 +7,87 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		int cantidad1, cantidad2;
-		String producto1, producto2, razonSocial, domicilio;
-		double precioSinIva1, precioSinIva2;
+
+		int cantidad, cantidadTipoProductos;
+		String razonSocial, domicilio, producto;
+		double precioBruto;
 
 		Date fecha = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		sdf.format(fecha);
 		String printFecha = sdf.format(fecha);
 
-		Scanner ingresoPorTeclado = new Scanner(System.in);
-		System.out.println("Ingrese Razon Social");
-		razonSocial = ingresoPorTeclado.nextLine();
+		razonSocial = ingresoRazonSocial();
+		domicilio = ingresoDomicilio();
+		cantidadTipoProductos = ingresoCantidadTiposProductos();
 
-		System.out.println("Ingrese Domicilio");
-		domicilio = ingresoPorTeclado.nextLine();
+		for (int i = 0; i < cantidadTipoProductos; i++) {
 
-		System.out.println("Ingrese producto");
-		producto1 = ingresoPorTeclado.nextLine();
+			producto = ingresoNombreProducto();
+			cantidad = ingresoCantidadProducto();
+			precioBruto = ingresoPrecioBruto();
+			System.out.println("*************************************************************************************");
+			System.out.println("Fecha: " + printFecha);
+			System.out.println("*************************************************************************************");
+			System.out.println("Nombre: " + razonSocial);
+			System.out.println("Domicilio: " + domicilio);
+			System.out.println("*************************************************************************************");
+			System.out.println("Cant. \t| Descripcion \t| P. unit \t| P. total");
+			System.out.println("*************************************************************************************");
+			System.out.println(
+					cantidad + "\t| " + producto + "\t\t| " + precioBruto + "\t\t| " + (precioBruto * cantidad));
+			System.out.println("*************************************************************************************");
+			System.out.println("IVA: $\t" + (precioBruto * cantidad) * 0.21);
+			System.out.println("Subtotal (sin IVA): $" + (precioBruto * cantidad));
+			System.out.println("Total: $" + (precioBruto * cantidad) * 1.21);
+			System.out.println("*************************************************************************************");
 
-		System.out.println("Ingrese cantidad");
-		cantidad1 = ingresoPorTeclado.nextInt();
-
-		System.out.println("precio");
-		precioSinIva1 = ingresoPorTeclado.nextDouble();
-		ingresoPorTeclado.nextLine();
-
-		System.out.println("Ingrese producto");
-		producto2 = ingresoPorTeclado.nextLine();
-
-		System.out.println("Ingrese cantidad");
-		cantidad2 = ingresoPorTeclado.nextInt();
-
-		System.out.println("precio");
-		precioSinIva2 = ingresoPorTeclado.nextDouble();
-
-		System.out.println("*************************************************************************************");
-		System.out.println("Fecha: " + printFecha);
-		System.out.println("*************************************************************************************");
-		System.out.println("Nombre: " + razonSocial);
-		System.out.println("Domicilio: " + domicilio);
-		System.out.println("*************************************************************************************");
-		System.out.println("Cant. | Descripcion | P. unit | P. total");
-		System.out.println("----------------------------------------------------------------------------------------------------");
-		System.out.println(cantidad1 + "    | " + producto1 + "       | " + precioSinIva1 + "     | "+ (precioSinIva1 * cantidad1));
-		System.out.println("----------------------------------------------------------------------------------------------------");
-		System.out.println(cantidad2 + "    | " + producto2 + "       | " + precioSinIva2 + "     | "+ (precioSinIva2 * cantidad2));
-		System.out.println("----------------------------------------------------------------------------------------------------");
-		System.out.println("IVA: $" + ((((precioSinIva1 * cantidad1) + (precioSinIva2 * cantidad2)) * 0.21)));
-		System.out.println("Subtotal (sin IVA): $" + ((precioSinIva1 * cantidad1) + (precioSinIva2 * cantidad2)));
-		System.out.println("Total: $" + ((((precioSinIva1 * cantidad1) + (precioSinIva2 * cantidad2)) * 1.21)));
-		System.out.println("**************************************************************************************");
+		}
 
 	}
 
+	public static String ingresoRazonSocial() {
+		Scanner ingresoPorTeclado = new Scanner(System.in);
+		System.out.println("Ingrese Razon Social");
+		String nombre = ingresoPorTeclado.nextLine();
+		return nombre;
+	}
+
+	public static String ingresoDomicilio() {
+		Scanner ingresoPorTeclado = new Scanner(System.in);
+		System.out.println("Ingrese Domicilio");
+		String domicilio = ingresoPorTeclado.nextLine();
+		return domicilio;
+
+	}
+
+	public static int ingresoCantidadProducto() {
+		Scanner ingreso = new Scanner(System.in);
+		System.out.println("Ingrese cantidad Producto");
+		int cantidad = ingreso.nextInt();
+		return cantidad;
+
+	}
+
+	public static String ingresoNombreProducto() {
+		Scanner ingresoPorTeclado = new Scanner(System.in);
+		System.out.println("Ingrese el nombre del producto");
+		String producto = ingresoPorTeclado.next();
+		return producto;
+
+	}
+
+	public static double ingresoPrecioBruto() {
+		Scanner ingresoPorTeclado = new Scanner(System.in);
+		System.out.println("Ingrese Precio");
+		double precioBruto = ingresoPorTeclado.nextDouble();
+		return precioBruto;
+	}
+
+	public static int ingresoCantidadTiposProductos() {
+		Scanner ingreso = new Scanner(System.in);
+		System.out.println("Ingrese la cantidad de variedad de productos");
+		int cantidadTipos = ingreso.nextInt();
+		return cantidadTipos;
+	}
 }
