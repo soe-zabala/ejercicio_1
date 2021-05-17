@@ -5,72 +5,65 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
+	static Scanner ingresoPorTeclado = new Scanner(System.in);
 
 	public static void main(String[] args) {
 
-		int cantidad, cantidadTipoProductos;
+		int cantidad, cantidadTipoProductos, i = 0;
 		String razonSocial, domicilio, producto;
-		double precioBruto;
-
+		double precioBruto, precioBrTotal = 0.0, ivaTotal = 0.0, precioSinIvaTotal = 0.0;
 		Date fecha = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		sdf.format(fecha);
 		String printFecha = sdf.format(fecha);
 
-		razonSocial = ingresoRazonSocial();
-		domicilio = ingresoDomicilio();
-		cantidadTipoProductos = ingresoCantidadTiposProductos();
+		razonSocial = ingresoDatosEmpresa("Ingrese Razon social ");
+		domicilio = ingresoDatosEmpresa("Ingrese Domicilio");
+		cantidadTipoProductos = ingresoCantidadProducto("Ingrese la cantidad de variedad de productos");
 
-		for (int i = 0; i < cantidadTipoProductos; i++) {
+		System.out.println("*************************************************************************************");
+		System.out.println("Fecha: " + printFecha);
+		System.out.println("*************************************************************************************");
+		System.out.println("Nombre: " + razonSocial); //
+		System.out.println("Domicilio: " + domicilio);
+		System.out.println("*************************************************************************************");
 
+		while (i < cantidadTipoProductos) {
 			producto = ingresoNombreProducto();
-			cantidad = ingresoCantidadProducto();
+			cantidad = ingresoCantidadProducto("Ingrese cantidad");
 			precioBruto = ingresoPrecioBruto();
-			System.out.println("*************************************************************************************");
-			System.out.println("Fecha: " + printFecha);
-			System.out.println("*************************************************************************************");
-			System.out.println("Nombre: " + razonSocial);
-			System.out.println("Domicilio: " + domicilio);
-			System.out.println("*************************************************************************************");
 			System.out.println("Cant. \t| Descripcion \t| P. unit \t| P. total");
 			System.out.println("*************************************************************************************");
 			System.out.println(
 					cantidad + "\t| " + producto + "\t\t| " + precioBruto + "\t\t| " + (precioBruto * cantidad));
 			System.out.println("*************************************************************************************");
-			System.out.println("IVA: $\t" + (precioBruto * cantidad) * 0.21);
-			System.out.println("Subtotal (sin IVA): $" + (precioBruto * cantidad));
-			System.out.println("Total: $" + (precioBruto * cantidad) * 1.21);
-			System.out.println("*************************************************************************************");
+
+			ivaTotal = ivaTotal + (precioBruto * cantidad * 0.21);
+			precioSinIvaTotal = precioSinIvaTotal + (precioBruto * cantidad);
+			precioBrTotal = precioBrTotal + (precioBruto * cantidad);
+			i++;
 
 		}
 
+		System.out.println("IVA: $" + ivaTotal);
+		System.out.println("Subtotal (sin IVA): $" + precioSinIvaTotal);
+		System.out.println("Total: $" + precioBrTotal * 1.21);
 	}
 
-	public static String ingresoRazonSocial() {
-		Scanner ingresoPorTeclado = new Scanner(System.in);
-		System.out.println("Ingrese Razon Social");
-		String nombre = ingresoPorTeclado.nextLine();
-		return nombre;
+	public static String ingresoDatosEmpresa(String datos) {
+		System.out.println(datos);
+		String empresa = ingresoPorTeclado.nextLine();
+		return empresa;
 	}
 
-	public static String ingresoDomicilio() {
-		Scanner ingresoPorTeclado = new Scanner(System.in);
-		System.out.println("Ingrese Domicilio");
-		String domicilio = ingresoPorTeclado.nextLine();
-		return domicilio;
-
-	}
-
-	public static int ingresoCantidadProducto() {
-		Scanner ingreso = new Scanner(System.in);
-		System.out.println("Ingrese cantidad Producto");
-		int cantidad = ingreso.nextInt();
+	public static int ingresoCantidadProducto(String datos) {
+		System.out.println(datos);
+		int cantidad = ingresoPorTeclado.nextInt();
 		return cantidad;
 
 	}
 
 	public static String ingresoNombreProducto() {
-		Scanner ingresoPorTeclado = new Scanner(System.in);
 		System.out.println("Ingrese el nombre del producto");
 		String producto = ingresoPorTeclado.next();
 		return producto;
@@ -79,15 +72,9 @@ public class Main {
 
 	public static double ingresoPrecioBruto() {
 		Scanner ingresoPorTeclado = new Scanner(System.in);
-		System.out.println("Ingrese Precio");
+		System.out.println("Ingrese Precio del producto");
 		double precioBruto = ingresoPorTeclado.nextDouble();
 		return precioBruto;
 	}
 
-	public static int ingresoCantidadTiposProductos() {
-		Scanner ingreso = new Scanner(System.in);
-		System.out.println("Ingrese la cantidad de variedad de productos");
-		int cantidadTipos = ingreso.nextInt();
-		return cantidadTipos;
-	}
 }
